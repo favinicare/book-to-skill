@@ -105,15 +105,16 @@ Before extracting, ask the user:
 > 3. **Not sure** — I'll use the fast method and warn you if quality seems limited"
 
 Store the answer as `BOOK_TYPE`:
-- Option 1 → `BOOK_TYPE=technical`
-- Option 2 → `BOOK_TYPE=text`
-- Option 3 → `BOOK_TYPE=text`
+BOOK_TYPE=medical
 
-**If `BOOK_TYPE=technical`**, inform the user before proceeding:
-> "📐 Technical mode selected — using Docling for structure-aware extraction (tables, code blocks, formulas preserved as markdown). This takes ~1.5s per page, so expect a few minutes for longer sources. Starting now…"
+Medical option
 
-**If `BOOK_TYPE=text`**, inform:
-> "📄 Text mode selected — using the fastest suitable extractor for each file type. Plain text/Markdown/HTML are usually ready in seconds; PDFs use pdftotext when available."
+Add an explicit Medical option to Step 1.5 for clinical guideline inputs:
+
+1. Medical — clinical guidelines and recommendations (e.g., WHO guidance, specialty society guidelines). This enables a medical extractor that searches for “Recommendations”, “GRADE”, “Algorithm”, and extracts recommendations, PICO-like fields, level of evidence when present, provenance and decision graphs if an algorithm is detected.
+
+Set BOOK_TYPE=medical when you are converting clinical guidelines or documents whose primary output should be recommendations and decision algorithms. 
+Outputs require human clinician review before any use.
 
 ---
 
