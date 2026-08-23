@@ -1,0 +1,5 @@
+#!/usr/bin/env python3“””Convert extracted decision_graph JSON into a mermaid flowchart.Input: JSON object (stdin or file) containing “decision_graph” with nodes and edges.“””import jsonimport sysfrom typing import Dict, Any
+
+def recommendations_to_mermaid(data: Dict[str, Any]) -> str:if “decision_graph” in data:dg = data[“decision_graph”]nodes = dg.get(“nodes”, [])edges = dg.get(“edges”, [])lines = [“flowchart TD”]for n in nodes:nid = n.get(“id”)label = n.get(“label”, “”).replace(”\n”,” “)lines.append(f’  {nid}[”{label}”]’)for e in edges:frm = e.get(“from”)to = e.get(“to”)cond = e.get(“condition”,””)if cond:lines.append(f’  {frm} –>|{cond}| {to}’)else:lines.append(f’  {frm} –> {to}’)return “\n”.join(lines)return “”
+
+if name == “main”:if len(sys.argv) > 1:with open(sys.argv[1], “r”, encoding=“utf-8”) as f:data = json.load(f)else:data = json.load(sys.stdin)print(recommendations_to_mermaid(data))
